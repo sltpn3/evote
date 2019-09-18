@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Votes{% endblock %}</h1>
+{% endblock %}
+
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+  {% if form.key._value %}
+  <form method="post">
+    <div>{{ form.key }}</div>
+    
+    <input type="submit" value="Submit">
+  </form>
+  {% else %}
+  <form method="post">
+    <div>Input Vote Key</div><div><input id="key" name="key" required type="text" value=""></div>
+    <input type="submit" value="Submit">
+  </form>
+  {% endif %}
+{% endblock %}

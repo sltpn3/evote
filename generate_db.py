@@ -5,7 +5,7 @@ from model import base
 from model import pemilih
 from model import keys
 from model import calon
-from model import pilihan
+from model import vote
 
 engine = create_engine('mysql://aditya:rahasia123@localhost/evote')
-base.Base.metadata.create_all(engine, checkfirst=True)
+print(base.Base.metadata.create_all(engine, checkfirst=True))

@@ -7,3 +7,4 @@ class Calon(Base):
 
     id = Column(Integer, primary_key=True)
     nama = Column(String(512))
+    image = Column(String(256))
