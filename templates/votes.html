@@ -6,10 +6,18 @@
 
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
-  {% if form.key._value %}
+  {% if status.key_ok %}
   <form method="post">
+  
     <div>{{ form.key }}</div>
+    <ul id="pilihan">
+      {% for pilihan in form.pilihan %}
+          {{ pilihan }}
+          {{ pilihan.label }}
+           
+      {% endfor %}
     
+    </ul>
     <input type="submit" value="Submit">
   </form>
   {% else %}

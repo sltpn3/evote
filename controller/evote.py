@@ -17,4 +17,4 @@ class EvoteController():
         self.session = self.Session()
     
     def pilihan_choices(self):
-        return [(e.id, e.nama, e.image) for e in self.session.query(calon.Calon).order_by('id')]
+        return [(e.id, e.nama) for e in self.session.query(calon.Calon).order_by('id')]

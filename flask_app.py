@@ -8,10 +8,11 @@ app.secret_key = b'MzgSuSc4yGm7zTx'
 
 @app.route('/votes', methods=['GET', 'POST'])
 def votes():
-    form = VoteForm(request.form)
-    form.pilihan.choices = evote.pilihan_choices()
-    if request.method == 'POST' and form.validate():
-        pass
+    form_vote = VoteForm(request.form)
+    form_vote.pilihan.choices = evote.pilihan_choices()
+    status = {}
+    if request.method == 'POST' and form_vote.validate():
+        return render_template('success.html')
 #         event_id = request.form.get('event_id', None)
 #         email_subject = request.form.get('email_subject', None)
 #         email_content = request.form.get('email_content', None)
@@ -25,8 +26,14 @@ def votes():
 #             flash('Error Saving Data')
 #         return render_template('save_emails.html', form=form)
     else:
-        print(form.key)
-        return render_template('votes.html', form=form)
+        print(form_vote.validate())
+        print (form_vote.errors)
+        print(form_vote.key)
+        if form_vote.key._value():
+            status = {'key_ok': True}
+        for pilihan in form_vote.pilihan.choices:
+            print(pilihan)
+        return render_template('votes.html', form=form_vote, status=status)
 
 
 evote = EvoteController(config_file='config.conf')
