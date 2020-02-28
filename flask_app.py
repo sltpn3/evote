@@ -1,10 +1,15 @@
 from flask import Flask, request, render_template, flash
 from forms.vote import VoteForm
 from controller.evote import EvoteController
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.secret_key = b'MzgSuSc4yGm7zTx'
+Bootstrap(app)
 
+@app.route('/', methods=['GET'])
+def welcome():
+    return render_template('index.html')
 
 @app.route('/votes', methods=['GET', 'POST'])
 def votes():

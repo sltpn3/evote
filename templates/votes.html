@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}Votes{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Votes{% endblock %}</h1>
+   Votes
 {% endblock %}
 
 {% from "_formhelpers.html" import render_field %}
@@ -14,16 +16,19 @@
       {% for pilihan in form.pilihan %}
           {{ pilihan }}
           {{ pilihan.label }}
-           
       {% endfor %}
-    
     </ul>
     <input type="submit" value="Submit">
   </form>
   {% else %}
   <form method="post">
-    <div>Input Vote Key</div><div><input id="key" name="key" required type="text" value=""></div>
-    <input type="submit" value="Submit">
+    <div class="container text-center mt-2 mb-2">Input Vote Key</div>
+    <div class="container text-center mt-2 mb-2 col-3">
+      <input id="key" name="key" required type="text" placeholder="Input Vote Key" value="" class="form-control">
+    </div>
+    <div class="container text-center mt-2 mb-2">
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
   </form>
   {% endif %}
 {% endblock %}
