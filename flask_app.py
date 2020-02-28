@@ -38,4 +38,5 @@ def votes():
 
 evote = EvoteController(config_file='config.conf')
 
-app.run('0.0.0.0', '9001')
+if __name__ == "__main__":
+    app.run('0.0.0.0', '9001')
