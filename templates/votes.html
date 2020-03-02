@@ -12,19 +12,30 @@
   <form method="post">
   
     <div>{{ form.key }}</div>
-    <ul id="pilihan">
+    <div class="d-flex justify-content-center mr-0 row">
       {% for pilihan in form.pilihan %}
-          {{ pilihan }}
-          {{ pilihan.label }}
+          <div class="container col-3">
+            <div class="row mb-1 d-flex justify-content-center">
+              <img class="img-thumbnail" width="200" src="https://st4.depositphotos.com/9998432/25177/v/450/depositphotos_251778046-stock-illustration-person-gray-photo-placeholder-man.jpg">
+            </div>
+            <div class="row">
+              <div class="span6" style="float: none; margin: 0 auto;">
+                {{ pilihan(class_="form-check-input") }}
+                {{ pilihan.label(class_= "form-check-label") }}
+              </div>
+            </div>
+          </div>
       {% endfor %}
-    </ul>
-    <input type="submit" value="Submit">
+    </div>
+    <div class="container text-center mt-2 mb-2">
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
   </form>
   {% else %}
   <form method="post">
     <div class="container text-center mt-2 mb-2">Input Vote Key</div>
     <div class="container text-center mt-2 mb-2 col-3">
-      <input id="key" name="key" required type="text" placeholder="Input Vote Key" value="" class="form-control">
+      <input id="key" name="key" required type="text" placeholder="just enter random number" value="" class="form-control">
     </div>
     <div class="container text-center mt-2 mb-2">
       <input type="submit" value="Submit" class="btn btn-primary">

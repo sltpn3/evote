@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Votes{% endblock %}
+
+{% block header %}
+   Votes
+{% endblock %}
+
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+  <div class="text-center">Pilihan Anda Telah Disimpan</div>
+  <div class="text-center">Terima Kasih Atas Partisipasi Anda</div>
+  <div class="text-center">
+    <a href="/votes"><button type="button" class="btn btn-primary text-center mt-2 mb-2">Kembali</button></a>
+  </div>
+{% endblock %}

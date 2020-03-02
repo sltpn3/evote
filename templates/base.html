@@ -6,8 +6,10 @@
 </head>
 
 <body>
-  <div class="container text-center border rounded bg-success text-white mt-4 mb-2 p-1"><h2>E -Voting Alam Asri Residence</h2></div>
-  <div class="container border rounded bg-light text-dark mt-3 p-2">
+  <div class="text-center container bg-success text-white col-12"">
+  	<h2 class="mb-0 pb-1">E -Voting Alam Asri Residence</h2>
+  </div>
+  <div class="container bg-light text-dark col-12 p-2">
     <h3>{% block header %}{% endblock %}</h3>
     {% for message in get_flashed_messages() %}
       <div class="flash">{{ message }}</div>
