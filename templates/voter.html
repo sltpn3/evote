@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Voter{% endblock %}
+
+{% block header %}
+   Data Voter
+{% endblock %}
+
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+  <div class="container col-3">
+	  <table class="table table-striped" >
+	    <tbody>
+	      <tr>
+	        <td>Nama:</td>
+	        <td>{{ voter.nama }}</td>
+	      </tr>
+	      <tr>
+	        <td>Alamat:</td>
+	        <td>{{ voter.alamat|print_alamat }}</td>
+	      </tr>
+	      <tr>
+	        <td>Status:</td>
+	        <td>{{ voter.status_memilih|status_memilih }}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="container text-center mt-2 mb-2">
+		  <form method="post">
+		    {% if voter.status_memilih == "1" %}
+		      <button type="button" class="btn btn-primary" disabled>Generate Vote Key</button>
+		    {% else %}
+		      <input type="submit" value="Generate Vote Key" class="btn btn-primary">
+		    {% endif %} 
+		  </form>
+	  </div>
+  </div>
+{% endblock %}

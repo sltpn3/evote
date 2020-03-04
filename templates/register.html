@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block header %}
+   Register
+{% endblock %}
+
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+  <form method="post">
+    <div class="container text-center mt-2 mb-2 col-3">
+      {{ form.name(class_="form-control") }}
+    </div>
+    <div class="container text-center mt-2 mb-2">
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
+  </form>
+  {% if voters %}
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nama</th>
+        <th scope="col">Alamat</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for voter in voters %}
+      <tr>
+        <td><a href="{{ url_for('voter', _id=voter.id) }}">{{ voter.nama }}</a></td>
+        <td>{{ voter.alamat|print_alamat}}</td>
+        <td>{{ voter.status_memilih|status_memilih }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

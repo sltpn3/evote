@@ -23,3 +23,14 @@ class EvoteController():
     def pilihan_choices(self):
         choices = [(e.id, e.nama) for e in self.session.query(calon.Calon).order_by('id')]
         return choices
+
+    def search_voters_by_name(self, _filter):
+        _filter = '%{}%'.format(_filter)
+        voters = self.session.query(pemilih.Pemilih).filter(pemilih.Pemilih.nama.like(_filter)).order_by('id').all()
+#         voters = [e for e in self.session.query(pemilih.Pemilih).filter(pemilih.Pemilih.nama.like(_filter)).order_by('id')]
+        print(voters)
+        return voters
+
+    def get_voter(self, _id):
+        voter = self.session.query(pemilih.Pemilih).filter_by(id=_id).first()
+        return voter
