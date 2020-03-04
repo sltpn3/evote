@@ -1,11 +1,16 @@
-from flask import Flask, request, render_template, flash
+from flask import Flask, request, render_template, flash, send_from_directory
 from forms.vote import VoteForm
 from controller.evote import EvoteController
 from flask_bootstrap import Bootstrap
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.secret_key = b'MzgSuSc4yGm7zTx'
 Bootstrap(app)
+
+
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('', path)
 
 
 @app.route('/', methods=['GET'])
