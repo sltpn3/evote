@@ -17,20 +17,28 @@ class EvoteController():
                                                                           self.config.get('database', 'name'))
         self.engine = create_engine(self.engine_config, pool_recycle=1)
         self.Session = sessionmaker(bind=self.engine)
-        self.session = self.Session()
+        self.session = None
 #         self.session = sessionmaker(bind=self.engine)
 
+    def inititate_connection(self):
+        self.session = self.Session()
+
     def pilihan_choices(self):
+        self.inititate_connection()
         choices = [(e.id, e.nama) for e in self.session.query(calon.Calon).order_by('id')]
+        self.session.close()
         return choices
 
     def search_voters_by_name(self, _filter):
         _filter = '%{}%'.format(_filter)
+        self.inititate_connection()
         voters = self.session.query(pemilih.Pemilih).filter(pemilih.Pemilih.nama.like(_filter)).order_by('id').all()
 #         voters = [e for e in self.session.query(pemilih.Pemilih).filter(pemilih.Pemilih.nama.like(_filter)).order_by('id')]
-        print(voters)
+        self.session.close()
         return voters
 
     def get_voter(self, _id):
+        self.inititate_connection()
         voter = self.session.query(pemilih.Pemilih).filter_by(id=_id).first()
+        self.session.close()
         return voter
