@@ -36,6 +36,25 @@ def db_to_geojson():
     conn = sqlite3.connect('app.sqlite')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    data = {'type': 'FeatureCollection',
+            'features': []}
+    sql = 'SELECT * FROM kota_geojson'
+    cursor.execute(sql)
+    rows = cursor.fetchall()
+    for row in rows:
+        geometry = json.loads(row['geometry'])
+        properties = {'mhid': row['mhid'],
+                      'KABKOT': row['kabkot'],
+                      'KABKOTNO': row['kabkotno'],
+                      'PROV': row['prov'],
+                      'PROVNO': row['provno']}
+        # print(properties)
+        element = {'type': 'Feature',
+                   'feature': geometry,
+                   'properties': properties}
+        data['features'].append(element)
+    f = open('nebula2.geojson', 'w')
+    f.write(json.dumps(data))
     cursor.close()
     conn.close()
 
@@ -133,7 +152,8 @@ def fix_kota():
     conn.close()
 
 
-geojson_to_db()
+# geojson_to_db()
+db_to_geojson()
 # json_to_db()
 # csv_to_db()
 # fix_kota()
