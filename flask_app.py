@@ -3,11 +3,24 @@ from forms.vote import VoteForm
 from forms.register import RegisterForm
 from controller.evote import EvoteController
 from flask_bootstrap import Bootstrap
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, static_url_path='')
 app.secret_key = b'MzgSuSc4yGm7zTx'
 app.config['TESTING'] = True
 Bootstrap(app)
+
+auth = HTTPBasicAuth()
+
+users = {'alamasri': generate_password_hash('rahasiaalamasri123')}
+
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users:
+        return check_password_hash(users.get(username), password)
+    return False
 
 
 @app.template_filter('print_alamat')
@@ -49,6 +62,7 @@ def voter(_id):
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@auth.login_required
 def register():
     form = RegisterForm(request.form)
     voters = None
@@ -70,6 +84,17 @@ def votes():
         if form.key._value():
             status = {'key_ok': True}
         return render_template('votes.html', form=form, status=status)
+
+
+@app.route('/cek_registrasi', methods=['GET', 'POST'])
+def cek_register():
+    form = RegisterForm(request.form)
+    voters = None
+    if request.method == 'GET':
+        voters = evote.search_voters_by_name('%')
+    elif request.method == 'POST' and form.validate():
+        voters = evote.search_voters_by_name(request.form.get('name'))
+    return render_template('cek_register.html', form=form, voters=voters)
 
 
 evote = EvoteController(config_file='config.conf')
